@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>北京市人口日迁移图</title>
+	<link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="style/fonts.css" />
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+</head>
+<meta charset="utf-8">
+<style>
+	.node {
+		stroke-width: 1.5px;
+	}
+</style>
+<body>
+	<div id="dist-selection">
+		<a href="?dist=changping">昌平区</a>
+		<a href="?dist=chaoyang">朝阳区</a>
+		<a href="?dist=daxing">大兴区</a>
+		<a href="?dist=dongcheng">东城区</a>
+		<a href="?dist=fangshan">房山区</a>
+		<a href="?dist=fengtai">丰台区</a>
+		<a href="?dist=haidian">海淀区</a>
+		<a href="?dist=huairou">怀柔区</a>
+		<a href="?dist=mentougou">门头沟区</a>
+		<a href="?dist=miyun">密云县</a>
+		<a href="?dist=pinggu">平谷区</a>
+		<a href="?dist=shijingshan">石景山区</a>
+		<a href="?dist=xicheng">西城区</a>
+		<a href="?dist=yanqing">延庆县</a>
+	</div>
+	<div id="main-wrapper">
+		<div id="header">
+			<div id="header-block">
+				<div id="header-left">
+					<div id="current_time">4:00am</div>
+					<div id="speed">
+						<div class="togglebutton slow current" data-val="slow">Slow</div>
+						<div class="togglebutton medium" data-val="medium">Medium</div>
+						<div class="togglebutton fast" data-val="fast">Fast</div>
+						<div class="clr"></div>
+					</div>
+				</div>
+				<div id="header-right">
+					<span id="current-dist">当前区县：</span>
+					<a id="switch">[切换]</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- <div id="sidebar">
+			<div id="current_time">4:00am</div>
+			<div id="speed">
+				<div class="togglebutton slow current" data-val="slow">Slow</div>
+				<div class="togglebutton medium" data-val="medium">Medium</div>
+				<div class="togglebutton fast" data-val="fast">Fast</div>
+				<div class="clr"></div>
+			</div>
+			<div id="note"></div> 
+			 <div id="cite">
+				这是基于TalkingData抽选的北京1000个城区居民的生活移动仿真. 采取了2017年7月17日周一的地理位置数据。 展示的创意与方式来自于<a href="http://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/">FlowingData</a>.
+			</div> 
+		</div> -->
+		<div id="chart"></div>
+		<div class="clr"></div>
+	</div>
+	<script src="js/d3-3-5-5.min.js"></script>
+	<script src="js/chart.js"></script>
+	<script>
+		var distSwitch = document.getElementById('switch')
+		var distList = document.getElementById('dist-selection')
+		distSwitch.addEventListener('click', function (e) {
+			e.stopPropagation()
+			distList.style.display = 'inline'
+			
+		})
+		distList.addEventListener('click', function (e) {
+			e.stopPropagation()
+		})
+		document.addEventListener('click', function (e) {
+			e.preventDefault()
+			e.stopPropagation()
+			distList.style.display = 'none'
+		})
+	</script>
+</body>
+</html>
