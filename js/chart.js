@@ -56,37 +56,11 @@ var act_codes = JSON.parse(
 
 var speeds = { "slow": 1000, "medium": 200, "fast": 50 };
 
-var time_notes = [
-    { "start_minute": 1, "stop_minute": 40, "note": "凌晨四点，已经有早起的鸟儿起来啦～" },
-    { "start_minute": 70, "stop_minute": 120, "note": "太阳准备升起，地铁准备运转." },
-    { "start_minute": 180, "stop_minute": 300, "note": "早起的高峰期，大家陆陆续续起床去上班." },
-    { "start_minute": 360, "stop_minute": 440, "note": "上班期间，一切那么有秩序." },
-    { "start_minute": 480, "stop_minute": 540, "note": "中午时分，有的人可能去寻找美食." },
-    { "start_minute": 660, "stop_minute": 720, "note": "下午时分，又是稳稳的工作." },
-    { "start_minute": 780, "stop_minute": 830, "note": "接近下班，已经有人蠢蠢欲动." },
-    { "start_minute": 870, "stop_minute": 890, "note": "下班啦，大家都像鸟儿一样四处飞!" },
-    { "start_minute": 930, "stop_minute": 1010, "note": "晚间大家在Happy." },
-    { "start_minute": 1080, "stop_minute": 1140, "note": "夜深了，大家开始回家了." },
-    { "start_minute": 1210, "stop_minute": 1300, "note": "睡吧睡吧，夜猫子们." },
-];
-
 var notes_index = 0;
-
-
-// Activity to put in center of circle arrangement
-var center_act = "Traveling",
-    center_pt = { "x": 380, "y": 365 };
-
 
 // Coordinates for activities
 var foci = {};
 act_codes.forEach(function (code, i) {
-    // if (code.desc == center_act) {
-    // 	foci[code.index] = center_pt;
-    // } else {
-    // 	var theta = 2 * Math.PI / (act_codes.length-1);
-    // 	// foci[code.index] = {x: 250 * Math.cos(i * theta)+380, y: 250 * Math.sin(i * theta)+365 };
-    // }
     foci[code.index] = { x: (code.locX - 115.9748156880) * 1000 + 60, y: 850 - (code.locY - 39.7268362964) * 1000 }
 });
 
@@ -137,7 +111,6 @@ d3.tsv("data/days-simulated-v2.tsv." + distName, function (error, data) {
     var force = d3.layout.force()
         .nodes(nodes)
         .size([width, height])
-        // .links([])
         .gravity(0)
         .charge(0)
         .friction(.9)
@@ -157,30 +130,15 @@ d3.tsv("data/days-simulated-v2.tsv." + distName, function (error, data) {
         .enter().append("text")
         .attr("class", "actlabel")
         .attr("x", function (d, i) {
-            // if (d.desc == center_act) {
-            // 	return center_pt.x;
-            // } else {
-            // 	var theta = 2 * Math.PI / (act_codes.length-1);
-            // 	return 340 * Math.cos(i * theta)+380;
-            // }
-            // if(d.short === '密云县') console.log((d.locX - 115.9748156880) * 1000 + 60)
             return (d.locX - 115.9748156880) * 1000 + 60
 
         })
         .attr("y", function (d, i) {
-            // if (d.desc == center_act) {
-            // 	return center_pt.y;
-            // } else {
-            // 	var theta = 2 * Math.PI / (act_codes.length-1);
-            // 	return 340 * Math.sin(i * theta)+365;
-            // }
-            // if(d.short === '密云县') console.log((1000 - (d.locY - 39.7268362964) * 1000) + 60)
             return (850 - (d.locY - 39.7268362964) * 1000)
         });
 
     label.append("tspan")
         .attr("x", function () { return d3.select(this.parentNode).attr("x"); })
-        // .attr("dy", "1.3em")
         .attr("text-anchor", "middle")
         .text(function (d) {
             return d.short;
@@ -239,33 +197,6 @@ d3.tsv("data/days-simulated-v2.tsv." + distName, function (error, data) {
         // Update time
         var true_minute = curr_minute % 1440;
         d3.select("#current_time").text(minutesToTime(true_minute));
-
-        // Update notes
-        // var true_minute = curr_minute % 1440;
-        if (true_minute == time_notes[notes_index].start_minute) {
-            d3.select("#note")
-                .style("top", "0px")
-                .transition()
-                .duration(600)
-                .style("top", "20px")
-                .style("color", "#000000")
-                .text(time_notes[notes_index].note);
-        }
-
-        // Make note disappear at the end.
-        else if (true_minute == time_notes[notes_index].stop_minute) {
-
-            d3.select("#note").transition()
-                .duration(1000)
-                .style("top", "300px")
-                .style("color", "#ffffff");
-
-            notes_index += 1;
-            if (notes_index == time_notes.length) {
-                notes_index = 0;
-            }
-        }
-
 
         setTimeout(timer, speeds[USER_SPEED]);
     }
