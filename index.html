@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>北京市人口日迁移图</title>
 	<link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
@@ -11,7 +12,18 @@
 	.node {
 		stroke-width: 1.5px;
 	}
+
+	#main {
+		width: 1000px;
+		height: 1000px;
+		float: left;
+		position: absolute;
+		left: 0;
+		top: 0;
+		/* z-index: -1; */
+	}
 </style>
+
 <body>
 	<div id="dist-selection">
 		<a href="?dist=changping">昌平区</a>
@@ -49,8 +61,21 @@
 
 		</div>
 		<div id="chart"></div>
+		<div id="main"></div>
 		<div class="clr"></div>
 	</div>
+	<script type="text/javascript" src="js/echarts.js"></script>
+	<script type="text/javascript" src="js/china.js"></script>
+	<script type="text/javascript" src="js/beijing.js"></script>
+	<script type="text/javascript">
+		var chart = echarts.init(document.getElementById('main'));
+		chart.setOption({
+			series: [{
+				type: 'map',
+				map: '北京'
+			}]
+		});
+	</script>
 	<script src="js/d3-3-5-5.min.js"></script>
 	<script src="js/chart.js"></script>
 	<script>
@@ -59,7 +84,7 @@
 		distSwitch.addEventListener('click', function (e) {
 			e.stopPropagation()
 			distList.style.display = 'inline'
-			
+
 		})
 		distList.addEventListener('click', function (e) {
 			e.stopPropagation()
