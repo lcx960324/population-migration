@@ -20,7 +20,14 @@
 		position: absolute;
 		left: 0;
 		top: 0;
-		/* z-index: -1; */
+		z-index: -1;
+	}
+	.wrapper {
+		position: relative;
+		width: 1000px;
+		height: 1000px;
+		margin: 0 auto;
+		margin-top: -80px;
 	}
 </style>
 
@@ -60,9 +67,10 @@
 			</div>
 
 		</div>
-		<div id="chart"></div>
-		<div id="main"></div>
-		<div class="clr"></div>
+		<div class="wrapper">
+			<div id="chart"></div>
+			<div id="main"></div>
+		</div>
 	</div>
 	<script type="text/javascript" src="js/echarts.js"></script>
 	<script type="text/javascript" src="js/china.js"></script>

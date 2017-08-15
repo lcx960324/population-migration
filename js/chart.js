@@ -26,7 +26,7 @@ currentDist.innerHTML = '当前区县：' + dists[distName]
 
 var USER_SPEED = "slow"
 
-var width = 1300,
+var width = 1000,
     height = 1000,
     padding = 1,
     maxRadius = 3;
@@ -36,22 +36,22 @@ var sched_objs = [],
     curr_minute = 0;
 
 var act_codes = JSON.parse(
-    `[{"index":12,"short":"怀柔区","locX":"116.6317528612","locY":"40.3159912873"},
-				{"index":14,"short":"密云县","locX":"116.8431884668","locY":"40.3768390677"},
-				{"index":11,"short":"延庆县","locX":"115.9748156880","locY":"40.4569214709"},
-				{"index":15,"short":"平谷区","locX":"117.1214057933","locY":"40.1406204547"},
-				{"index":1,"short":"顺义区","locX":"116.6547422601","locY":"40.1301048887"},
-				{"index":10,"short":"海淀区","locX":"116.2984249535","locY":"39.9593111073"},
-				{"index":2,"short":"朝阳区","locX":"116.4635596893","locY":"39.9219101073"},
-				{"index":5,"short":"西城区","locX":"116.3661201484","locY":"39.9123176085"},
-				{"index":16,"short":"东城区","locX":"116.4164086326","locY":"39.9285801106"},
-				{"index":7,"short":"房山区","locX":"116.1429475947","locY":"39.7478879978"},
-				{"index":0,"short":"通州区","locX":"116.6571127957","locY":"39.9099664623"},
-				{"index":13,"short":"昌平区","locX":"116.2312801977","locY":"40.2207719308"},
-				{"index":8,"short":"门头沟区","locX":"116.1014584989","locY":"39.9404810498"},
-				{"index":9,"short":"石景山区","locX":"116.2229948245","locY":"39.9056943459"},
-				{"index":4,"short":"大兴区","locX":"116.3415800533","locY":"39.7268362964"},
-				{"index":6,"short":"丰台区","locX":"116.2861490459","locY":"39.8585504445"}]`
+    `[{"index":12,"short":"怀柔区","locX":"560","locY":"230"},
+				{"index":14,"short":"密云县","locX":"700","locY":"370"},
+				{"index":11,"short":"延庆县","locX":"360","locY":"380"},
+				{"index":15,"short":"平谷区","locX":"750","locY":"520"},
+				{"index":1,"short":"顺义区","locX":"600","locY":"550"},
+				{"index":10,"short":"海淀区","locX":"420","locY":"620"},
+				{"index":2,"short":"朝阳区","locX":"520","locY":"640"},
+				{"index":5,"short":"西城区","locX":"450","locY":"670"},
+				{"index":16,"short":"东城区","locX":"495","locY":"680"},
+				{"index":7,"short":"房山区","locX":"260","locY":"770"},
+				{"index":0,"short":"通州区","locX":"600","locY":"720"},
+				{"index":13,"short":"昌平区","locX":"400","locY":"520"},
+				{"index":8,"short":"门头沟区","locX":"250","locY":"620"},
+				{"index":9,"short":"石景山区","locX":"375","locY":"660"},
+				{"index":4,"short":"大兴区","locX":"480","locY":"790"},
+				{"index":6,"short":"丰台区","locX":"420","locY":"700"}]`
 )
 
 var speeds = { "slow": 1000, "medium": 200, "fast": 50 };
@@ -61,7 +61,7 @@ var notes_index = 0;
 // Coordinates for activities
 var foci = {};
 act_codes.forEach(function (code, i) {
-    foci[code.index] = { x: (code.locX - 115.9748156880) * 1000 + 60, y: 850 - (code.locY - 39.7268362964) * 1000 }
+    foci[code.index] = { x: code.locX, y: code.locY }
 });
 
 
@@ -130,11 +130,11 @@ d3.tsv("data/days-simulated-v2.tsv." + distName, function (error, data) {
         .enter().append("text")
         .attr("class", "actlabel")
         .attr("x", function (d, i) {
-            return (d.locX - 115.9748156880) * 1000 + 60
+            return d.locX
 
         })
         .attr("y", function (d, i) {
-            return (850 - (d.locY - 39.7268362964) * 1000)
+            return d.locY
         });
 
     label.append("tspan")
