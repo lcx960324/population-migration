@@ -314,7 +314,7 @@ function color(activity) {
 // Output readable percent based on count.
 function readablePercent(n) {
 
-    var pct = 100 * n / 1000;
+    var pct = 100 * n / 300;
     if (pct < 1 && pct > 0) {
         pct = "<1%";
     } else {
