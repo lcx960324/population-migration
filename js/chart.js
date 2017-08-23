@@ -18,6 +18,8 @@ var dists = {
     'miyun': '密云县',
     'pinggu': '平谷区',
     'shijingshan': '石景山区',
+    'shunyi': '顺义区',
+    'tongzhou': '通州区',
     'xicheng': '西城区',
     'yanqing': '延庆县'
 }
